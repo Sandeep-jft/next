@@ -1,7 +1,10 @@
 import Link from 'next/link'
-import React from 'react'
+import { signIn, signOut, useSession } from 'next-auth/react'
 
 const Navbar = () => {
+    const {data:session, status:loading} = useSession();
+
+
   return (
     <div className='navbar' >
         <div className='navbar-head' >
@@ -9,6 +12,11 @@ const Navbar = () => {
         </div>
         <div className='navbar-sidebar' >
             <ul className='navbar-sidebar__links' >
+                <li className='navbar-sidebar__links__item' >
+                    <Link href='/' >
+                    <a>Home</a>
+                    </Link>
+                </li>
                 <li className='navbar-sidebar__links__item' >
                     <Link href='/blog' >
                     <a>Blog</a>
@@ -19,21 +27,30 @@ const Navbar = () => {
                     <a>Dashboard</a>
                     </Link>
                 </li>
-                <li className='navbar-sidebar__links__item' >
-                    <Link href='/posts' >
-                    <a>Posts</a>
+                {
+                    loading === 'unauthenticated' && !session && 
+                    <li className='navbar-sidebar__links__item' >
+                    <Link href='/api/auth/signin' >
+                    <a onClick={(e)=>{
+                        e.preventDefault();
+                        signIn();
+                    }}>Sign In</a>
                     </Link>
                 </li>
-                <li className='navbar-sidebar__links__item' >
-                    <Link href='/signin' >
-                    <a>Sign In</a>
+                }
+                {
+                    loading === 'authenticated' && session && 
+                    <li className='navbar-sidebar__links__item' >
+                    <Link href='/api/auth/signout' >
+                    <a onClick={(e)=>{
+                        e.preventDefault();
+                        signOut('github',{
+                            redirect:true
+                        });
+                    }}>Sign Out</a>
                     </Link>
                 </li>
-                <li className='navbar-sidebar__links__item' >
-                    <Link href='/signout' >
-                    <a>Sign Out</a>
-                    </Link>
-                </li>
+                }
             </ul>
         </div>
 
