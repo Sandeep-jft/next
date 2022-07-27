@@ -1,0 +1,36 @@
+.navbar {
+    height:90px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    /* border-bottom: 1px solid grey; */
+    align-items: center;
+    background-color: antiquewhite;
+    box-shadow:1px 8px #888888;
+}
+
+.navbar-head {
+    margin-left: 20px;
+}
+
+.navbar-head__heading{
+    font-size: 28px;
+    text-decoration: wavy;
+    font-weight: bold;
+    color:brown;
+}
+
+.navbar-sidebar__links{
+    list-style-type: none;
+    display: flex;
+
+}
+
+.navbar-sidebar__links__item{
+    font-size: 20px;
+    text-decoration: wavy;
+    font-weight: bold;
+    color:brown;
+    margin-right: 2rem;
+}
+
